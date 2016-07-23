@@ -1,7 +1,7 @@
-from src.reducers.deck import deck
-from src.reducers.resource import resource
-from src.reducers.board import board
-from src.reducers.players import players
-from src.reducers.game import game
+from .deck import deck
+from .resource import resource
+from .board import board
+from .players import players
+from .game import game
 
 __all__=['deck', 'resource', 'board', 'players', 'game']
