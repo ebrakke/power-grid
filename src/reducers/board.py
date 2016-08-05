@@ -1,7 +1,8 @@
 import json
-
-map_colors = json.loads(open('src/config/map_colors.json').read())
-map_costs = json.loads(open('src/config/map_costs.json').read())
+import os.path
+current_path = os.path.dirname(os.path.realpath(__file__))
+map_colors = json.loads(open(os.path.join(current_path, '../config/map_colors.json')).read())
+map_costs = json.loads(open(os.path.join(current_path, '../config/map_costs.json')).read())
 
 def get_playable_cities(*colors):
 	cities = [ k for k in map_colors if map_colors.get(k) in colors ]

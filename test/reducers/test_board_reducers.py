@@ -2,7 +2,7 @@ import unittest
 import json
 from src.reducers import board
 
-class TestDeckReducer(unittest.TestCase):
+class TestBoardReducer(unittest.TestCase):
 	def test_returns_intial_state_if_no_state_supplied(self):
 		state = board()
 		self.assertEqual(len(state), 49)

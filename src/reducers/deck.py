@@ -1,7 +1,8 @@
 import json
+import os.path
 from random import shuffle
-
-cards = json.loads(open('src/config/cards.json').read())
+current_path = os.path.dirname(os.path.realpath(__file__))
+cards = json.loads(open(os.path.join(current_path, '../config/cards.json')).read())
 
 def initialize_state(cards):
 	light_cards = [c for c in cards if c['type'] == 'light']

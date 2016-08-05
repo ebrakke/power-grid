@@ -1,7 +1,7 @@
 import unittest
 from src.reducers import resource
 
-class TestDeckReducer(unittest.TestCase):
+class TestResourceReducer(unittest.TestCase):
 	
 	def setUp(self):
 		self.initial_state = dict(
