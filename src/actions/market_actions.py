@@ -9,3 +9,11 @@ def add_card(card):
     'type': 'MARKET_ADD_CARD',
     'card': card
   }
+
+def bid_on_card(card, amount, player_id):
+  return {
+    'type': 'BID_ON_CARD',
+    'amount': amount,
+    'card': card,
+    'player_id': player_id
+  }
