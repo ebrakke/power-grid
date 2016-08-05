@@ -28,6 +28,11 @@ class TestMarketReducer(unittest.TestCase):
 		)
 		new_state = market(state, add_card(dict(market_cost=4)))
 		self.assertEqual(new_state['current'][1], dict(market_cost=4))
+	
+	def test_adds_initial_cards_to_futures_market(self):
+		state = dict(current=[], futures=[])
+		new_state = market(state, add_card(dict(market_cost=4)))
+		self.assertEqual(new_state['current'][0], dict(market_cost=4))
 		
 
 if __name__ == '__main__':

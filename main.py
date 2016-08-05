@@ -1,7 +1,7 @@
 import json
 from vendor.python_redux import create_store, combine_reducers
 from src.reducers import game, players, board, resource, deck, market
-from src.controllers import bid
+from src.controllers import bid, start_game
 from flask_api import FlaskAPI
 from flask import request
 
@@ -15,6 +15,9 @@ store = create_store(combine_reducers({
   'deck': deck,
   'market': market
 }))
+
+# This will setup the game for players
+start_game(store)
 
 @app.route('/', methods=['GET'])
 def state():
