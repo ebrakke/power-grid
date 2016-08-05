@@ -8,7 +8,7 @@ def create_player(name):
 	if name is None:
 		name = ''
 	return dict(
-		id=md5(str(random()) + name).hexdigest(),
+		id=md5(str(random()).encode('utf-8') + name.encode('utf-8')).hexdigest(),
 		name=name,
 		money=50,
 		power_plants=[]
