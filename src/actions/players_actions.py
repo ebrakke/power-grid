@@ -1,5 +1,5 @@
-def create_player(name):
+def create_player(player_id):
   return {
     'type': 'CREATE_PLAYER',
-    'name': name
+    'player_id': player_id
   }

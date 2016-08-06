@@ -3,7 +3,9 @@ def initial_game():
 	return dict(
 		turn=0,
 		phase=0,
-		current_bid=None
+		current_bid=None,
+		player_order=[],
+		current_player=None
 	)
 
 def game(state=None, action=None):
@@ -33,6 +35,24 @@ def game(state=None, action=None):
 				amount=action.get('amount')
 			)
 		return next_state
+	
+	if ty == 'CREATE_PLAYER':
+		next_state = dict(**state)
+		next_state['player_order'].append(action.get('player_id'))
+		
+		# Set current player if none is set yet
+		if state.get('current_player') is None:
+			next_state['current_player'] = action.get('player_id')
+		return next_state
+	
+	if ty == 'NEXT_PLAYER':
+		current_player_index = state.get('player_order').index(state.get('current_player'))
+		# This will just be the next player in the player_order list
+		next_player_index = (current_player_index + 1) % len(state.get('player_order'))
+		next_state = dict(**state)
+		next_state['current_player'] = state.get('player_order')[next_player_index]
+		return next_state
+	
 	
 	return state
 	

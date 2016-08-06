@@ -1,4 +1,4 @@
-from src.actions.game_actions import bid_on_power_plant
+from src.actions.game_actions import bid_on_power_plant, next_player
 
 def bid(data, store):
   """ Handle how to update the game when a player tried to bid on a market item"""
@@ -22,5 +22,6 @@ def bid(data, store):
   
   action = bid_on_power_plant(player_id, card, amount)
   store['dispatch'](action)
+  store['dispatch'](next_player())
   return
   

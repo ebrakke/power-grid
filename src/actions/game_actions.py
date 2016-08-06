@@ -15,3 +15,8 @@ def bid_on_power_plant(player_id, card, amount):
 		'card': card,
 		'amount': amount
 	}
+
+def next_player():
+	return {
+		'type': 'NEXT_PLAYER'
+	}

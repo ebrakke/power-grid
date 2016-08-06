@@ -4,8 +4,15 @@ from src.reducers import game
 class TestGameReducer(unittest.TestCase):
 	
 	def test_returns_intial_players_if_no_state_supplied(self):
+		initial_state = dict(
+			turn=0,
+			phase=0,
+			current_bid=None,
+			player_order=[],
+			current_player=None
+		)
 		state = game()
-		self.assertEqual(state, dict(turn=0, phase=0, current_bid=None))
+		self.assertEqual(state, initial_state)
 	
 	def test_returns_state_if_unknown_action_supplied(self):
 		seed = dict(turn=0, phase=0)
@@ -34,9 +41,11 @@ class TestGameReducer(unittest.TestCase):
 		state = game(dict(turn=0, phase=0, current_bid={'player_id': 1, 'card': {}, 'amount': 6}))
 		next_state = game(state, dict(type='BID_ON_POWER_PLANT', card={}, amount=4))
 		self.assertEqual(next_state['current_bid']['amount'], 6)
-		
-		
-		
+	
+	def test_adds_player_to_player_order(self):
+		state = game()
+		next_state = game(state, dict(type='CREATE_PLAYER', player_id='abc123'))
+		self.assertEqual(next_state.get('player_order'), ['abc123'])
 
 if __name__ == '__main__':
 	unittest.main()
