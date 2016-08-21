@@ -1,11 +1,13 @@
 def replenish_resource(resource, amount):
 	return {
-		'type': 'REPLENISH_RESOURCE',
+		'indicator': 'REPLENISH_RESOURCE',
+		'type': resource,
 		'amount': amount
 	}
 
 def take_resource(resource, amount):
 	return {
-		'type': 'TAKE_RESOURCE',
+		'indicator': 'TAKE_RESOURCE',
+		'type': resource,
 		'amount': amount
 	}

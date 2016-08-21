@@ -1,7 +1,7 @@
 import json
 from vendor.python_redux import create_store, combine_reducers
 from src.reducers import game, players, board, resource, deck, market
-from src.controllers import bid, start_game, join_game
+from src.controllers import bid, start_game, join_game, buy_resources
 from src.decorators import is_player_turn
 from flask_api import FlaskAPI
 from flask import request
@@ -31,6 +31,13 @@ def handle_bid():
   if request.method == 'POST':
     # handle the bid action
     bid(request.json, store)
+    return store['get_state']()
+  return store['get_state']()
+
+@app.route('/resources', methods=["POST"])
+def purchase_resources():
+  if request.method == "POST":
+    buy_resources(request.json, store)
     return store['get_state']()
   return store['get_state']()
 
