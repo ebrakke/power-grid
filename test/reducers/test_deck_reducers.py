@@ -5,7 +5,7 @@ from src.reducers import deck
 class TestDeckReducer(unittest.TestCase):
     def test_deck_returns_intial_deck_if_no_state_supplied(self):
         state = deck()
-        self.assertEqual(len(state), 42)
+        self.assertEqual(len(state), 39)
 
     def test_deck_returns_state_if_no_action_supplied(self):
         state = []
