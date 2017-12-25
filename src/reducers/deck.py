@@ -9,9 +9,14 @@ cards = json.loads(
 def initialize_state(cards):
     light_cards = [c for c in cards if c['type'] == 'light']
     dark_cards = [c for c in cards if c['type'] == 'dark']
+    step_card = [c for c in cards if c['type'] == 'step']
     shuffle(dark_cards)
     shuffle(light_cards)
-    return dark_cards + light_cards
+    #we are only playing 4 payers, so we need to remove some cards
+    inital_market = dark_cards[:9]
+    deck = dark_cards[10:] + light_cards[3:] #discard 1 dark, 3 light
+    shuffle(deck)
+    return inital_market + deck + step_card
 
 
 def deck(state=None, action=None):
