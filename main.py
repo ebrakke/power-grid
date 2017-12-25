@@ -1,8 +1,10 @@
 import json
+import src.decorators.connect as connect_decorator
 from vendor.python_redux import create_store, combine_reducers
 from src.reducers import game, players, game_map, resources, deck, market
 from src.controllers import bid, start_game, join_game
 from src.decorators import is_player_turn
+
 from flask_api import FlaskAPI
 from flask import request
 
@@ -17,6 +19,7 @@ store = create_store(combine_reducers({
     'deck': deck,
     'market': market
 }))
+connect_decorator.initialize(store)
 
 # This will setup the game for players
 start_game(store)
