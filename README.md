@@ -35,6 +35,7 @@ class PowerPlant {
   resource_type: string[];
   resource_cost: number;
   step_card: boolean // The card that indicates the start of step three
+  type: string // 'light' or 'dark'
 }
 
 class Market {
