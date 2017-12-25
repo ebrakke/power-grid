@@ -5,6 +5,7 @@ import importlib
 
 def run_all():
     tests = unittest.defaultTestLoader.discover('./test')
+    print(tests)
     results = unittest.TestResult()
     tests.run(results)
     print_results(results)
