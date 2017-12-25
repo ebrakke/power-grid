@@ -11,7 +11,14 @@ def initialize_state(cards):
     dark_cards = [c for c in cards if c['type'] == 'dark']
     shuffle(dark_cards)
     shuffle(light_cards)
-    return dark_cards + light_cards
+    #we are only playing 4 payers, so we need to remove some cards
+    held_card = dark_cards.pop()
+    dark_cards = dark_cards[1:] #discard 1
+    light_cards = light_cards[3:] # discard 3
+    inital_market = dark_cards[:8]
+    deck = dark_cards[8:] + light_cards
+    shuffle(deck)
+    return inital_market + held_card + deck
 
 
 def deck(state=None, action=None):
