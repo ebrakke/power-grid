@@ -34,7 +34,7 @@ class PowerPlant {
   cost: number;
   resource_type: string[];
   resource_cost: number;
-  step_card: boolean // The card that indicates the start of step two
+  step_card: boolean // The card that indicates the start of step three
 }
 
 class Market {
@@ -51,9 +51,9 @@ class City {
   color: string;
   name: string;
   generators: {
-    10: string;
-    15: string;
-    20: string
+    1: string;
+    2: string;
+    3: string
   }
 }
 
