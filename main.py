@@ -1,6 +1,6 @@
 import json
 from vendor.python_redux import create_store, combine_reducers
-from src.reducers import game, players, board, resource, deck, market
+from src.reducers import game, players, game_map, resources, deck, market
 from src.controllers import bid, start_game, join_game
 from src.decorators import is_player_turn
 from flask_api import FlaskAPI
@@ -12,8 +12,8 @@ app = FlaskAPI(__name__)
 store = create_store(combine_reducers({
     'game': game,
     'players': players,
-    'board': board,
-    'resource': resource,
+    'game_map': game_map,
+    'resources': resources,
     'deck': deck,
     'market': market
 }))
