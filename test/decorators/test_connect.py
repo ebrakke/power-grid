@@ -1,5 +1,5 @@
 import unittest
-from src.decorators import connect
+from src.decorators.connect import connect, initialize
 from vendor.python_redux import create_store, combine_reducers
 
 
@@ -27,15 +27,15 @@ TEST_STORE = create_store(combine_reducers({
 
 class TestConnectDecorator(unittest.TestCase):
     def test_runs_normal_function_if_no_store(self):
-        @connect.connect
+        @connect
         def func(a, b, **kwargs):
             return a + b
         self.assertEqual(func(1, 2), 3)
 
     def test_gets_passed_funcs_in_kwargs_if_store_provided(self):
-        connect.initialize(TEST_STORE)
+        initialize(TEST_STORE)
 
-        @connect.connect
+        @connect
         def func(a, b, **kwargs):
             get_state = kwargs.get('get_state')
             dispatch = kwargs.get('dispatch')
@@ -45,9 +45,9 @@ class TestConnectDecorator(unittest.TestCase):
         func(1, 2)
     
     def test_can_get_state_from_store(self):
-        connect.initialize(TEST_STORE)
+        initialize(TEST_STORE)
 
-        @connect.connect
+        @connect
         def func(**kwargs):
             get_state = kwargs.get('get_state')
             dispatch = kwargs.get('dispatch')

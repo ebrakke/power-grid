@@ -40,7 +40,6 @@ def game_map(state=None, action=None):
         player_id = action.get('player_id')
         new_state = deepcopy(state)
         new_state[action.get('city')][action.get('slot')] = player_id
-        print(new_state)
         return new_state
 
     return state
