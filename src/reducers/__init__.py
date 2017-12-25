@@ -1,8 +1,8 @@
 from .deck import deck
-from .resource import resource
-from .board import board
+from .resources import resources
+from .map import game_map
 from .players import players
 from .game import game
 from .market import market
 
-__all__ = ['deck', 'resource', 'board', 'players', 'game', 'market']
+__all__ = ['deck', 'resources', 'game_map', 'players', 'game', 'market']

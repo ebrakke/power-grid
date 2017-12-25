@@ -5,6 +5,7 @@ import importlib
 
 def run_all():
     tests = unittest.defaultTestLoader.discover('./test')
+    print(tests)
     results = unittest.TestResult()
     tests.run(results)
     print_results(results)
@@ -12,6 +13,7 @@ def run_all():
 
 def run_suite(ty, test_case_class_name):
     module = importlib.import_module('test.{}'.format(ty))
+    print(module)
     test_class = getattr(module, test_case_class_name)
     suite = unittest.defaultTestLoader.loadTestsFromTestCase(test_class)
     results = unittest.TestResult()

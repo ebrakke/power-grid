@@ -1,3 +1,4 @@
+""" List of action creators to dispatch to the market reducers """
 def purchase_card(card_index):
     return {
         'type': 'MARKET_PURCHASE_CARD',
@@ -12,10 +13,8 @@ def add_card(card):
     }
 
 
-def bid_on_card(card, amount, player_id):
+def add_cards(cards):
     return {
-        'type': 'BID_ON_CARD',
-        'amount': amount,
-        'card': card,
-        'player_id': player_id
+        'type': 'MARKET_ADD_CARDS',
+        'cards': cards
     }

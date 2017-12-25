@@ -1,0 +1,56 @@
+[
+  {
+    "coal": 0,
+    "uranium": 0,
+    "oil": 0,
+    "gas": 0
+  },
+  {
+    "coal": 4,
+    "uranium": 0,
+    "oil": 0,
+    "gas": 0
+  },
+  {
+    "coal": 4,
+    "uranium": 0,
+    "oil": 0,
+    "gas": 3
+  },
+  {
+    "coal": 3,
+    "uranium": 0,
+    "oil": 2,
+    "gas": 3
+  },
+  {
+    "coal": 3,
+    "uranium": 0,
+    "oil": 2,
+    "gas": 3
+  },
+  {
+    "coal": 3,
+    "uranium": 0,
+    "oil": 2,
+    "gas": 3
+  },
+  {
+    "coal": 2,
+    "uranium": 0,
+    "oil": 2,
+    "gas": 3
+  },
+  {
+    "coal": 2,
+    "uranium": 0,
+    "oil": 2,
+    "gas": 3
+  },
+  {
+    "coal": 2,
+    "uranium": 2,
+    "oil": 4,
+    "gas": 0
+  }
+]
