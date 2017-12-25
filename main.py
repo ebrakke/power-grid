@@ -10,40 +10,39 @@ app = FlaskAPI(__name__)
 
 # Setup the redux store
 store = create_store(combine_reducers({
-  'game': game,
-  'players': players,
-  'board': board,
-  'resource': resource,
-  'deck': deck,
-  'market': market
+    'game': game,
+    'players': players,
+    'board': board,
+    'resource': resource,
+    'deck': deck,
+    'market': market
 }))
 
 # This will setup the game for players
 start_game(store)
 
+
 @app.route('/', methods=['GET'])
 def state():
-  return store['get_state']()
+    return store['get_state']()
+
 
 @app.route('/bid', methods=['POST'])
 @is_player_turn(store, request)
 def handle_bid():
-  if request.method == 'POST':
-    # handle the bid action
-    bid(request.json, store)
+    if request.method == 'POST':
+        # handle the bid action
+        bid(request.json, store)
+        return store['get_state']()
     return store['get_state']()
-  return store['get_state']()
+
 
 @app.route('/join', methods=['POST'])
 def handle_join():
-  if request.method == 'POST':
-    player_id = join_game(store)
-    return {'player_id': player_id}
-  
-
+    if request.method == 'POST':
+        player_id = join_game(store)
+        return {'player_id': player_id}
 
 
 if __name__ == '__main__':
-  app.run(debug=True)
-
-
+    app.run(debug=True)

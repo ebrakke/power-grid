@@ -5,5 +5,7 @@ import logging
  * @param {String} message The warning message.
  * @returns {void}
 """
+
+
 def warning(message):
-	logging.warning(message)
+    logging.warning(message)

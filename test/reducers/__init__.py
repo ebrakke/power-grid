@@ -5,4 +5,5 @@ from .test_market_reducers import TestMarketReducer
 from .test_players_reducers import TestPlayersReducer
 from .test_resource_reducers import TestResourceReducer
 
-__all__ = ['TestBoardReducer', 'TestDeckReducer', 'TestGameReducer', 'TestMarketReducer', 'TestPlayersReducer', 'TestResourceReducer']
+__all__ = ['TestBoardReducer', 'TestDeckReducer', 'TestGameReducer',
+           'TestMarketReducer', 'TestPlayersReducer', 'TestResourceReducer']
