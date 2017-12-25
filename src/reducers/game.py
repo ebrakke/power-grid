@@ -34,10 +34,7 @@ def game(state=None, action=None):
 
     if action_type == 'GAME_NEXT_PHASE':
         next_state = deepcopy(state)
-        if state['phase'] == 5:
-            next_state['phase'] = 1
-            return next_state
-        next_state['phase'] = state['phase'] + 1
+        next_state['phase'] = (state['phase'] % 5) + 1
         return next_state
 
     if action_type == 'GAME_SET_CURRENT_BID':
