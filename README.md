@@ -34,8 +34,8 @@ class PowerPlant {
   cost: number;
   resource_type: string[];
   resource_cost: number;
-  step_card: boolean // The card that indicates the start of step three
-  type: string // 'light' or 'dark'
+  current_resources: number;
+  type: string; // 'light', 'dark' 'step'
 }
 
 class Market {
@@ -76,6 +76,14 @@ class ResourceBank {
   uranium: number;
 }
 
+class CurrentBid {
+    power_plant: PowerPlant;
+    amount: number;
+    player_id: string;
+    passed: string[];
+
+}
+
 // This is the public game state
 class GameState {
   players: Player[];
@@ -85,6 +93,7 @@ class GameState {
   map: Map;
   phase: Phase; // Indicates the phase of the round we are in (1,2,3,4,5)
   step: number; // Indicates the step of the game we are in (1,2,3)
+  current_bid;
   resources: {
     1: ResourceBank,
     2: ResourceBank,
