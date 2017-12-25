@@ -1,5 +1,6 @@
 from src.actions.game_actions import pass_current_bid, pass_initial_bid, set_current_bid, \
-    set_current_player, win_current_bid, next_phase
+    set_current_player, win_current_bid, next_phase, clear_bid, clear_bought_or_passed
+from src.actions.players_actions import discard_power_plant
 from src.decorators.connect import connect
 
 
@@ -34,12 +35,35 @@ def bid(bid_request, **kwargs):
     return True
 
 
+@connect
+def discard_power_plant(discard_request, **kwargs):
+    """ Handle discarding a powerplant when a player has 4"""
+    player_id = discard_request.get('player_id')
+    card = discard_request.get('card')
+
+    get_state = kwargs['get_state']
+    dispatch = kwargs['dispatch']
+
+    initial_state = get_state()
+    if not card:
+        return False
+
+    player = [pl for pl in initial_state.get('game').get('players') if pl.get('player_id') == player_id][0]
+
+    if len(player.get('power_plants')) != 4:
+        return False
+
+    dispatch(discard_power_plant(player_id, card))
+    return handle_pass_actions(player_id, get_state(), dispatch)
+
+
 def handle_pass_actions(player_id, state, dispatch):
     game_state = state.get('game')
     total_players = len(game_state.get('players'))
     # If everyone has passed, it's time to go to the next phase
     if len(game_state.get('bought_or_passed')) == total_players:
         dispatch(next_phase())
+        dispatch(clear_bought_or_passed())
         # The next phase is resources, so the last player goes first
         dispatch(set_current_player(game_state.get('player_rank')[total_players - 1]))
         return True
