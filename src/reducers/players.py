@@ -30,15 +30,14 @@ def players(state=None, action=None):
         for p in next_state:
             if p == action.get('player_id'):
                 if len(p['power_plants']) < 4:
-                    p['power_plants'].append('power_plant')
+                    p['power_plants'].append(action.get('power_plant'))
         return next_state
     if action_type == 'PLAYER_REMOVE_POWER_PLANT':
         next_state = deepcopy(state)
         for p in next_state:
             if p == action.get('player_id'):
                 if len(p['power_plants']) > 3:
-                    p['power_plants'].remove('card')
+                    p['power_plants'].remove(action.get('power_plant'))
 
-        return next_state
-
+            return next_state
     return state
