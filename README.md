@@ -69,6 +69,13 @@ enum Phase {
   Generate
 }
 
+class ResourceBank {
+  coal: number;
+  oil: number;
+  gas: number;
+  uranium: number;
+}
+
 // This is the public game state
 class GameState {
   players: Player[];
@@ -78,5 +85,16 @@ class GameState {
   map: Map;
   phase: Phase; // Indicates the phase of the round we are in (1,2,3,4,5)
   step: number; // Indicates the step of the game we are in (1,2,3)
+  resources: {
+    1: ResourceBank,
+    2: ResourceBank,
+    3: ResourceBank,
+    4: ResourceBank,
+    5: ResourceBank,
+    6: ResourceBank,
+    7: ResourceBank,
+    8: ResourceBank,
+    9: ResourceBank
+  }
 }
 ```
