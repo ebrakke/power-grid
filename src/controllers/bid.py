@@ -1,6 +1,6 @@
 from src.actions.game_actions import pass_current_bid, pass_initial_bid, set_current_bid, \
     set_current_player, win_current_bid, next_phase, clear_bid, clear_bought_or_passed
-from src.actions.players_actions import discard_power_plant
+from src.actions.players_actions import remove_power_plant
 from src.decorators.connect import connect
 
 
@@ -16,23 +16,22 @@ def bid(bid_request, **kwargs):
 
     initial_state = get_state()
     current_bid = initial_state.get('game').get('current_bid')
-
     # This indicates a passing bid
     if amount == 0:
         # If no one has bid, this indicates passing on an initial bid
         if not current_bid:
             dispatch(pass_initial_bid(player_id))
-            return handle_pass_actions(player_id, get_state(), dispatch)
+            return handle_pass_actions(player_id, get_state().get('game'), dispatch)
 
         dispatch(pass_current_bid(player_id))
-        return handle_pass_actions(player_id, get_state(), dispatch)
+        return handle_pass_actions(player_id, get_state().get('game'), get_state().get('players'), dispatch)
 
-    if not valid_bid(player_id, amount, card, get_state()):
+    if not valid_bid(player_id, amount, card, initial_state.get('game'), initial_state.get('players'), initial_state.get('market')):
         return False
+
     action = bid(player_id, card, amount)
     dispatch(action)
-    handle_pass_actions(player_id, get_state(), dispatch)
-    return True
+    return handle_pass_actions(player_id, get_state().get('game'), get_state().get('players'), dispatch)
 
 
 @connect
@@ -53,12 +52,11 @@ def discard_power_plant(discard_request, **kwargs):
     if len(player.get('power_plants')) != 4:
         return False
 
-    dispatch(discard_power_plant(player_id, card))
-    return handle_pass_actions(player_id, get_state(), dispatch)
+    dispatch(remove_power_plant(player_id, card))
+    return handle_pass_actions(player_id, get_state().get('game'), get_state().get('players'), dispatch)
 
 
-def handle_pass_actions(player_id, state, dispatch):
-    game_state = state.get('game')
+def handle_pass_actions(player_id, game_state, players, dispatch):
     total_players = len(game_state.get('players'))
     # If everyone has passed, it's time to go to the next phase
     if len(game_state.get('bought_or_passed')) == total_players:
@@ -74,7 +72,7 @@ def handle_pass_actions(player_id, state, dispatch):
         dispatch(win_current_bid())
         return True
 
-    potential_player_ids = [player.get('player_id') for player in game_state.get('players') if player not in passed + [player_id]]
+    potential_player_ids = [player.get('player_id') for player in players if player not in passed + [player_id]]
     for id in game_state.get('bid_order'):
         if id in potential_player_ids:
             dispatch(set_current_player(id))
@@ -83,38 +81,34 @@ def handle_pass_actions(player_id, state, dispatch):
     return False
 
 
-def valid_bid(player_id, amount, card, state):
-    current_bid = state.get('game').get('current_bid')
+def valid_bid(player_id, amount, card, game_state, players, market):
+    current_bid = game_state.get('current_bid')
     # All of these fields must be present
     if not all([player_id, amount, card]):
         return False
 
     # This is not a valid card to bid on
-    if card not in state.get('market').get('current'):
+    if card not in market.get('current'):
         return False
 
     # Not allowed to bid on another card if a bid is currently going
-    if current_bid and current_bid.get('card') != card:
+    if current_bid.get('card') != card or not current_bid.get('card'):
         return False
 
-    if player_id in state.get('game').get('bought_or_passed'):
+    if player_id in game_state.get('bought_or_passed'):
         return False
 
     if current_bid and player_id in current_bid.get('passed'):
         return False
 
-    player = [player for player in state.get('players') if player['player_id'] == player_id][0]
+    player = [player for player in players if player['player_id'] == player_id][0]
     # You can't bid more than you have
     if amount > player['money']:
         return False
 
     # You can't get another power plant while you have four
-    if len(player.get['power_plants']) == 4:
+    if len(player.get('power_plants')) == 4:
         return False
-
-
-
-
 
     return True
 
