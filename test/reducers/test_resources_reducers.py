@@ -3,16 +3,13 @@ import json
 import os.path
 from copy import deepcopy
 from src.reducers import resources
-CURRENT_PATH = os.path.dirname(os.path.realpath(__file__))
-INITIAL_RESOURCES = json.loads(
-    open(os.path.join(CURRENT_PATH, '../../src/config/initial_resources.json')).read())
-MAX_RESOURCES = json.loads(
-    open(os.path.join(CURRENT_PATH, '../../src/config/max_resources.json')).read())
+from src.reducers.resources import INITIAL_STATE
+
 
 class TestResourcesReducer(unittest.TestCase):
 
     def setUp(self):
-        self.initial_state = deepcopy(INITIAL_RESOURCES)
+        self.initial_state = deepcopy(INITIAL_STATE)
 
     def test_returns_intial_deck_if_no_state_supplied(self):
         state = resources()
@@ -22,27 +19,32 @@ class TestResourcesReducer(unittest.TestCase):
         state = resources()
         new_state = resources(state, dict(
             type='REPLENISH_RESOURCE', resource_type='coal'))
-        self.assertEqual(new_state[0]['coal'], 1)
+        self.assertEqual(new_state['current_resource_bank'][0]['coal'], 1)
 
     def test_removes_amount_on_take_resource(self):
         state = resources()
         new_state = resources(state, dict(
             type='TAKE_RESOURCE', resource_type='coal'))
-        self.assertEqual(new_state[1]['coal'], 3)
-    
+        self.assertEqual(new_state['current_resource_bank'][1]['coal'], 3)
+
     def test_removes_nothing_if_no_resource(self):
-        empty_state = [dict(coal=0, oil=0, gas=0, uranium=0) for x in range(9)]
-        new_state = resources(empty_state, dict(
+        state = resources()
+        state['current_resource_bank'] = [
+            dict(coal=0, uranium=0, oil=0, gas=0)] * 9
+        new_state = resources(state, dict(
             type='TAKE_RESOURCE', resource_type='coal'
         ))
-        self.assertFalse(any(x != y for (x,y) in zip(empty_state, new_state)))
-    
+        self.assertFalse(any(x != y for (x, y) in zip(
+            state['current_resource_bank'], new_state['current_resource_bank'])))
+
     def test_adds_nothing_if_all_resources_are_full(self):
-        full_state = deepcopy(MAX_RESOURCES)
-        new_state = resources(full_state, dict(
+        state = resources()
+        state['current_resource_bank'] = deepcopy(state['max_resource_bank'])
+        new_state = resources(state, dict(
             type='REPLENISH_RESOURCE', resource_type='coal'
         ))
-        self.assertFalse(any(x != y for (x,y) in zip(full_state, new_state)))
+        self.assertFalse(any(x != y for (x, y) in zip(
+            state['current_resource_bank'], new_state['current_resource_bank'])))
 
     def test_returns_state_if_unknown_action_supplied(self):
         state = resources([], dict(type='UNKNOWN'))

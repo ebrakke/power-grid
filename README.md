@@ -58,16 +58,12 @@ class City {
   }
 }
 
-// This will be private to the user
-type Deck: PowerPlant[];
+class ConnectionCost {
 
-enum Phase {
-  PlayerOrder,
-  BuyPowerPlants,
-  BuyResources,
-  BuyGenerators,
-  Generate
 }
+
+// This will be private to the user
+type Deck: Card[];
 
 class ResourceBank {
   coal: number;
@@ -76,34 +72,27 @@ class ResourceBank {
   uranium: number;
 }
 
-class CurrentBid {
-    power_plant: PowerPlant;
-    amount: number;
-    player_id: string;
-    passed: string[];
-
-}
-
 // This is the public game state
 class GameState {
   players: Player[];
-  current_player: string;
   market: Market;
-  player_rank: string[];
   map: Map;
-  phase: Phase; // Indicates the phase of the round we are in (1,2,3,4,5)
-  step: number; // Indicates the step of the game we are in (1,2,3)
-  current_bid;
+  game: {
+    current_player: string;
+    player_rank: string;
+    phase: number;
+    step: number;
+    current_bid: {
+      card: Card;
+      amount: number;
+      player_id: string;
+      passed: string[];
+    };
+    bought_or_passed: string[]
+  };
   resources: {
-    1: ResourceBank,
-    2: ResourceBank,
-    3: ResourceBank,
-    4: ResourceBank,
-    5: ResourceBank,
-    6: ResourceBank,
-    7: ResourceBank,
-    8: ResourceBank,
-    9: ResourceBank
+    max_resource_bank: ResourceBank[];
+    current_resource_bank: ResourceBank[];
   }
 }
 ```
