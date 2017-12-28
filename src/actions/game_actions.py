@@ -28,7 +28,7 @@ def pass_initial_bid(player_id):
 
 
 def win_current_bid():
-    return dict(type='GAME_WIN_CURENT_BID')
+    return dict(type='GAME_WIN_CURRENT_BID')
 
 
 def clear_bid():
@@ -45,3 +45,6 @@ def set_current_player(player_id):
 
 def clear_bought_or_passed():
     return dict(type='GAME_CLEAR_BOUGHT_OR_PASSED')
+
+def set_bidding_order(bidding_order):
+    return dict(type='GAME_SET_BIDDING_ORDER', bidding_order=bidding_order)

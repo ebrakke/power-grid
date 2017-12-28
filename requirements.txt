@@ -1,3 +1,4 @@
 Flask==0.11.1
-Flask_API==0.6.7
+Flask_API==0.6.8
 autopep8==1.3.3
+requests==2.18.4

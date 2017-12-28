@@ -22,26 +22,28 @@ def players(state=None, action=None):
     if action_type == 'PLAYER_CHANGE_MONEY':
         next_state = deepcopy(state)
         for p in next_state:
-            if p == action.get('player_id'):
+            if p.get('player_id') == action.get('player_id'):
                 p['money'] += action.get('money')
         return next_state
+
     if action_type == 'PLAYER_ADD_POWER_PLANT':
         next_state = deepcopy(state)
         for p in next_state:
-            if p == action.get('player_id'):
+            if p.get('player_id') == action.get('player_id'):
                 if len(p['power_plants']) < 4:
                     p['power_plants'].append(action.get('power_plant'))
         return next_state
+
     if action_type == 'PLAYER_REMOVE_POWER_PLANT':
         next_state = deepcopy(state)
         for p in next_state:
-            if p == action.get('player_id'):
+            if p.get('player_id') == action.get('player_id'):
                 if len(p['power_plants']) > 3:
                     p['power_plants'].remove(action.get('power_plant'))
 
             return next_state
     if action_type == 'ADD_PLAYER':
         next_state = deepcopy(state)
-        next_state = next_state + [create_player(action_type.get('player_id'))]
+        next_state = next_state + [create_player(action.get('player_id'))]
         return next_state
     return state

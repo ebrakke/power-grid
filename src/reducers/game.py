@@ -14,7 +14,8 @@ def initial_game():
             passed=[]
         ),
         player_rank=[],
-        bought_or_passed=[]
+        bought_or_passed=[],
+        bidding_order=[]
     )
 
 
@@ -39,14 +40,12 @@ def game(state=None, action=None):
 
     if action_type == 'GAME_SET_CURRENT_BID':
         next_state = deepcopy(state)
-        # only update the bid if the new amount is greater than the old amount
-        if state.get('current_bid') is None:
-            next_state['current_bid'] = dict(
-                player_id=action.get('player_id'),
-                card=action.get('card'),
-                amount=action.get('amount'),
-                passed=state.get('current_bid').get('passed')
-            )
+        next_state['current_bid'] = dict(
+            player_id=action.get('player_id'),
+            card=action.get('card'),
+            amount=action.get('amount'),
+            passed=state.get('current_bid').get('passed')
+        )
         return next_state
 
     if action_type == 'GAME_PASS_CURRENT_BID':
@@ -91,6 +90,11 @@ def game(state=None, action=None):
     if action_type == 'GAME_CLEAR_BOUGHT_OR_PASSED':
         next_state = deepcopy(state)
         next_state['bought_or_passed'] = []
+        return next_state
+
+    if action_type == 'GAME_SET_BIDDING_ORDER':
+        next_state = deepcopy(state)
+        next_state['bidding_order'] = action.get('bidding_order')
         return next_state
 
     return state
