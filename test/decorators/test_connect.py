@@ -1,5 +1,5 @@
 import unittest
-from src.decorators.connect import connect, initialize
+from src.decorators.connect_to_store import connect, initialize
 from vendor.python_redux import create_store, combine_reducers
 
 

@@ -1,7 +1,7 @@
 from src.actions.game_actions import pass_current_bid, pass_initial_bid, set_current_bid, \
     set_current_player, win_current_bid, next_phase, clear_bid, clear_bought_or_passed
 from src.actions.players_actions import remove_power_plant
-from src.decorators.connect import connect
+from src.decorators.connect_to_store import connect
 
 
 @connect
@@ -22,7 +22,7 @@ def bid(bid_request, **kwargs):
     # This indicates a passing bid
     if amount == 0:
         # If no one has bid, this indicates passing on an initial bid
-        if not current_bid:
+        if not current_bid.get('card'):
             dispatch(pass_initial_bid(player_id))
         else:
             dispatch(pass_current_bid(player_id))
@@ -102,6 +102,9 @@ def valid_bid(player_id, amount, card, game_state, players, market):
     current_bid = game_state.get('current_bid')
     # All of these fields must be present
     if not all([player_id, amount, card]):
+        return False
+
+    if amount <= current_bid.get('amouunt'):
         return False
 
     # This is not a valid card to bid on

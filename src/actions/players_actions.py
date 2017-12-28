@@ -12,3 +12,6 @@ def add_power_plant(player_id, power_plant):
 
 def remove_power_plant(player_id, power_plant):
     return dict(type='PLAYER_REMOVE_POWER_PLANT', player_id=player_id, power_plant=power_plant)
+
+def add_player(player_id):
+    return dict(type='ADD_PLAYER', player_id=player_id)

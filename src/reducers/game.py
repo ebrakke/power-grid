@@ -40,7 +40,7 @@ def game(state=None, action=None):
     if action_type == 'GAME_SET_CURRENT_BID':
         next_state = deepcopy(state)
         # only update the bid if the new amount is greater than the old amount
-        if state.get('current_bid') is None or state.get('current_bid').get('amount') < action.get('amount'):
+        if state.get('current_bid') is None:
             next_state['current_bid'] = dict(
                 player_id=action.get('player_id'),
                 card=action.get('card'),
