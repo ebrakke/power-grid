@@ -36,7 +36,7 @@ def state():
 def handle_bid():
     if request.method == 'POST':
         # handle the bid action
-        if bid(request.json, store):
+        if bid(request.json):
             return store['get_state']()
         else:
             return {'bad request' : 'invalid bid'}, status.HTTP_400_BAD_REQUEST
@@ -46,7 +46,7 @@ def handle_bid():
 @app.route('/join', methods=['POST'])
 def handle_join():
     if request.method == 'POST':
-        player_id = join_game.join_game(store)
+        player_id = join_game.join_game()
         return {'player_id': player_id}
 
 

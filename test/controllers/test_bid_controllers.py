@@ -170,6 +170,12 @@ class TestBidControllers(unittest.TestCase):
         test_state['bought_or_passed'] = []
         self.assertEqual(self.base_game_state['player_rank'][3] ,get_next_player(test_state, self.players))
 
+    def test_next_player_is_next_after_initial_bid(self):
+        test_state = deepcopy(self.base_game_state)
+        test_state['bought_or_passed'] = []
+        test_state['current_bid'] = dict(player_id=None, amount=0, card=None, passed=[])
+        self.assertEqual()
+
 
 
 
