@@ -104,7 +104,7 @@ def valid_bid(player_id, amount, card, game_state, players, market):
     if not all([player_id, amount, card]):
         return False
 
-    if amount <= current_bid.get('amouunt'):
+    if amount <= current_bid.get('amount'):
         return False
 
     # This is not a valid card to bid on
