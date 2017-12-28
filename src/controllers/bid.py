@@ -15,23 +15,35 @@ def bid(bid_request, **kwargs):
     dispatch = kwargs['dispatch']
 
     initial_state = get_state()
+    if initial_state.get('game').get('phase') != 2:
+        return False
+    num_players = len(initial_state.get('players'))
     current_bid = initial_state.get('game').get('current_bid')
     # This indicates a passing bid
     if amount == 0:
         # If no one has bid, this indicates passing on an initial bid
         if not current_bid:
             dispatch(pass_initial_bid(player_id))
-            return handle_pass_actions(player_id, get_state().get('game'), dispatch)
+        else:
+            dispatch(pass_current_bid(player_id))
+    else:
+        if not valid_bid(player_id, amount, card, initial_state.get('game'), initial_state.get('players'), initial_state.get('market')):
+            return False
 
-        dispatch(pass_current_bid(player_id))
-        return handle_pass_actions(player_id, get_state().get('game'), get_state().get('players'), dispatch)
+        dispatch(bid(player_id, card, amount))
 
-    if not valid_bid(player_id, amount, card, initial_state.get('game'), initial_state.get('players'), initial_state.get('market')):
-        return False
+    if bid_is_won(get_state().get('game'), num_players):
+        dispatch(win_current_bid())
+        dispatch(clear_bid())
 
-    action = bid(player_id, card, amount)
-    dispatch(action)
-    return handle_pass_actions(player_id, get_state().get('game'), get_state().get('players'), dispatch)
+    if get_state().get('game').get('bought_or_passed') == num_players:
+        dispatch(next_phase())
+        dispatch(clear_bought_or_passed())
+        dispatch(clear_bid())
+
+    dispatch(set_current_player(get_next_player(get_state().get('game'), get_state().get('players'))))
+
+    return True
 
 
 @connect
@@ -49,36 +61,41 @@ def discard_power_plant(discard_request, **kwargs):
 
     player = [pl for pl in initial_state.get('game').get('players') if pl.get('player_id') == player_id][0]
 
-    if len(player.get('power_plants')) != 4:
+    if len(player.get('power_plants'))!= 4:
         return False
 
     dispatch(remove_power_plant(player_id, card))
-    return handle_pass_actions(player_id, get_state().get('game'), get_state().get('players'), dispatch)
+    dispatch(set_current_player(get_next_player(get_state().get('game'), get_state().get('players'))))
+
+    return True
 
 
-def handle_pass_actions(player_id, game_state, players, dispatch):
-    total_players = len(game_state.get('players'))
-    # If everyone has passed, it's time to go to the next phase
-    if len(game_state.get('bought_or_passed')) == total_players:
-        dispatch(next_phase())
-        dispatch(clear_bought_or_passed())
-        # The next phase is resources, so the last player goes first
-        dispatch(set_current_player(game_state.get('player_rank')[total_players - 1]))
-        return True
-
+def bid_is_won(game_state, num_players):
+    bought_or_passed = game_state.get('bought_or_passed')
     passed = game_state.get('current_bid').get('passed')
-    # All but one player passed on the bid,
-    if len(passed) == total_players - 1:
-        dispatch(win_current_bid())
-        return True
 
-    potential_player_ids = [player.get('player_id') for player in players if player not in passed + [player_id]]
-    for id in game_state.get('bid_order'):
-        if id in potential_player_ids:
-            dispatch(set_current_player(id))
-            return True
+    # All but one player passed on the bid,
+    if len(passed) + len(bought_or_passed) == num_players - 1:
+        return True
 
     return False
+
+
+def get_next_player(game_state, players):
+    bought_or_passed = game_state.get('bought_or_passed')
+    total_players = len(players)
+
+    players_with_4_plants = [player for player in players if len(player.get('power_plants')) == 4]
+    if len(players_with_4_plants) > 0:
+        return players_with_4_plants[0].get('player_id')
+
+    if len(bought_or_passed) == 0 and game_state.get('phase') == 3:
+        # The next phase is resources, so the last player goes first
+        return game_state.get('player_rank')[total_players - 1]
+
+    for player_id in game_state.get('bidding_order'):
+        if player_id not in bought_or_passed + [game_state.get('current_bid').get('player_id')]:
+            return player_id
 
 
 def valid_bid(player_id, amount, card, game_state, players, market):
