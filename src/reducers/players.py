@@ -40,4 +40,8 @@ def players(state=None, action=None):
                     p['power_plants'].remove(action.get('power_plant'))
 
             return next_state
+    if action_type == 'ADD_PLAYER':
+        next_state = deepcopy(state)
+        next_state = next_state + [create_player(action_type.get('player_id'))]
+        return next_state
     return state
