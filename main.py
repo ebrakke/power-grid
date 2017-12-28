@@ -5,6 +5,7 @@ from src.reducers import game, players, game_map, resources, deck, market
 
 from flask_api import FlaskAPI
 from flask import request
+import flask_api.status as status
 
 # This will setup the game for players
 # Setup the redux store
@@ -38,7 +39,7 @@ def handle_bid():
         if bid(request.json, store):
             return store['get_state']()
         else:
-            return False
+            return {'bad request' : 'invalid bid'}, status.HTTP_400_BAD_REQUEST
     return store['get_state']()
 
 
