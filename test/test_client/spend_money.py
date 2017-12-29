@@ -2,6 +2,7 @@ import requests
 import time
 import pprint
 import random
+from datetime import datetime
 
 api_url = 'http://localhost:5000/'
 state = {}
@@ -31,7 +32,6 @@ pp.pprint(state)
 
 while state['game']['phase'] == 2:
     get_game_state()
-    #pp.pprint(state['game'])
     current_player_index = player_ids.index(state['game']['current_player'])
     current_player_name = player_ids[current_player_index]
     max_bid = max_bids[current_player_index]
@@ -60,8 +60,6 @@ while state['game']['phase'] == 2:
             print("Player {} is passing on {} -- {}/{}".format(current_player_name,
                                                                card, current_bid.get('amount'), max_bid))
             make_bid_request(current_player_name, card, 0)
-
-    time.sleep(1)
 
 get_game_state()
 print("Bidding is over")

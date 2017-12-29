@@ -148,11 +148,11 @@ class TestBidControllers(unittest.TestCase):
     def test_bid_is_not_won_without_pass(self):
         self.assertFalse(bid_is_won(self.base_game_state, 4))
 
-    def test_next_player_after_bid_is_player_1(self):
+    def test_next_player_after_bid_is_player_3(self):
         test_state = deepcopy(self.base_game_state)
         test_state['current_bid'] = dict(player_id='', card=None, amount=0, passed=[])
         test_state['bought_or_passed'] = ['player_4', 'player_2']
-        self.assertEqual('player_1', get_next_player(test_state, self.players))
+        self.assertEqual('player_3', get_next_player(test_state, self.players))
 
     def test_next_player_after_player_1_bid_is_player_2(self):
         test_state = deepcopy(self.base_game_state)
@@ -172,9 +172,9 @@ class TestBidControllers(unittest.TestCase):
 
     def test_next_player_is_next_after_initial_bid(self):
         test_state = deepcopy(self.base_game_state)
-        test_state['bought_or_passed'] = []
-        test_state['current_bid'] = dict(player_id=None, amount=0, card=None, passed=[])
-        self.assertEqual()
+        test_state['bought_or_passed'] = ['player_1']
+        test_state['current_bid'] = dict(player_id='', amount=0, card=None, passed=[])
+        self.assertEqual('player_2', get_next_player(test_state, self.players))
 
 
 

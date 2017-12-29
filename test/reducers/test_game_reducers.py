@@ -34,14 +34,5 @@ class TestGameReducer(unittest.TestCase):
                                       card=None, amount=3, player_id='123'))
         self.assertEqual(next_state['current_bid']['amount'], 3)
 
-    def test_does_not_update_current_bid_when_bid_is_higher_than_amount(self):
-        state = initial_game()
-        state['current_bid']['amount'] = 6
-        next_state = game(state, dict(type='GAME_SET_CURRENT_BID',
-                                      card=None, amount=3, player_id='123'))
-        self.assertEqual(next_state['current_bid']['amount'], 6)
-        self.assertNotEqual(next_state['current_bid']['player_id'], '123')
-
-
 if __name__ == '__main__':
     unittest.main()
