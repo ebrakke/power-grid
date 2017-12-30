@@ -55,11 +55,24 @@ def bank_has_enough_resources(resources_to_buy, current_resource_bank):
         for r in bucket:
             bank_totals[r] += bucket.get(r)
 
-    for r in resources_to_buy:
-        if bank_totals.get(r) < resources_to_buy.get(r):
+    for resource in resources_to_buy:
+        if bank_totals.get(resource) < resources_to_buy.get(resource):
             return False
     return True
 
+
 def player_can_store_resources(resources_to_buy, player):
-    current_resources = player.get('resources')
-    power_plants = player.get('power_plants')
+    # Add resources to play and see if they have enough powerplants to store them
+    for resource in resources_to_buy:
+        player['resources'][resource] += resources_to_buy[resource]
+
+    total_storage = sum([p.get('generators') for p in player['power_plants']])
+    player_total_resources = sum([player['resources'][r]
+                                  for r in player['resources']])
+    # Can't store more than twice the amount of pp generators
+    if player_total_resources > total_storage * 2:
+        return False
+
+    # Can they fit on the powerplants
+    partitions = [(p, p['resource_cost'] * 2, p['resources'])
+                  for p in player['power_plants']]
