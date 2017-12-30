@@ -23,6 +23,12 @@ def initial_board(colors):
         board[country] = {'1': None, '2': None, '3': None}
     return board
 
+
+def initial_state(colors):
+    board = initial_board(colors)
+    costs = deepcopy(MAP)
+    return dict(board=board, costs=costs)
+
 # main reducer
 
 
@@ -30,7 +36,7 @@ def game_map(state=None, action=None):
     """ The reducer for the boarder state"""
     if state is None:
         # Hard coding in the 4 colors now
-        state = initial_board(['brown', 'purple', 'red', 'yellow'])
+        state = initial_state(['brown', 'purple', 'red', 'yellow'])
     if action is None:
         return state
 
@@ -39,7 +45,7 @@ def game_map(state=None, action=None):
         # add player to city if not already in city
         player_id = action.get('player_id')
         new_state = deepcopy(state)
-        new_state[action.get('city')][action.get('slot')] = player_id
+        new_state['board'][action.get('city')][action.get('slot')] = player_id
         return new_state
 
     return state
