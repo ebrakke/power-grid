@@ -1,0 +1,215 @@
+{
+  "Lisboa": { "Madrid": 13 },
+  "Madrid": { "Lisboa": 13, "Bordeaux": 16, "Barcelona": 14 },
+  "Bordeaux": {
+    "Madrid": 16,
+    "Barcelona": 15,
+    "Marseille": 12,
+    "Paris": 12,
+    "Lyon": 12
+  },
+  "Barcelona": { "Marseille": 11, "Madrid": 14, "Bordeaux": 15 },
+  "Marseille": { "Barcelona": 11, "Bordeaux": 12, "Lyon": 8, "Milano": 13 },
+  "Paris": {
+    "Bordeaux": 12,
+    "London": 16,
+    "Lyon": 11,
+    "Rhein-Ruhr": 10,
+    "Vlaanderen": 7,
+    "Stuttgart": 14,
+    "Zurich": 14
+  },
+  "Lyon": {
+    "Marseille": 8,
+    "Bordeaux": 12,
+    "Paris": 11,
+    "Milano": 11,
+    "Zurich": 14
+  },
+  "London": { "Paris": 16, "Randstad": 18, "Vlaanderen": 15, "Birmingham": 4 },
+  "Rhein-Ruhr": {
+    "Paris": 10,
+    "Vlaanderen": 4,
+    "Rhein-Main": 3,
+    "Stuttgart": 5
+  },
+  "Vlaanderen": {
+    "Paris": 7,
+    "Rhein-Ruhr": 4,
+    "London": 15,
+    "Randstad": 4,
+    "Bremen": 10,
+    "Rhein-Main": 6
+  },
+  "Randstad": { "London": 18, "Vlaanderen": 4, "Bremen": 8 },
+  "Birmingham": { "London": 4, "Glasgow": 13, "Dublin": 15 },
+  "Glasgow": { "Birmingham": 13, "Dublin": 17 },
+  "Dublin": { "Birmingham": 15, "Glasgow": 17 },
+  "Stuttgart": {
+    "Paris": 14,
+    "Rhein-Ruhr": 5,
+    "Rhein-Main": 3,
+    "Munchen": 4,
+    "Zurich": 5
+  },
+  "Bremen": {
+    "Randstad": 8,
+    "Vlaanderen": 10,
+    "Berlin": 6,
+    "Rhein-Main": 9,
+    "Kobenhavn": 12
+  },
+  "Rhein-Main": {
+    "Vlaanderen": 6,
+    "Rhein-Ruhr": 3,
+    "Stuttgart": 3,
+    "Berlin": 10,
+    "Praha": 10,
+    "Munchen": 6,
+    "Bremen": 9
+  },
+  "Berlin": {
+    "Rhein-Main": 10,
+    "Bremen": 6,
+    "Praha": 7,
+    "Warszawa": 11,
+    "Kobenhavn": 15
+  },
+  "Praha": {
+    "Rhein-Main": 10,
+    "Munchen": 8,
+    "Katowice": 8,
+    "Berlin": 7,
+    "Warszawa": 11,
+    "Wien": 7
+  },
+  "Munchen": {
+    "Rhein-Main": 6,
+    "Stuttgart": 4,
+    "Praha": 8,
+    "Milano": 16,
+    "Zurich": 8,
+    "Zagreb": 14,
+    "Wien": 9
+  },
+  "Katowice": {
+    "Praha": 8,
+    "Kyjiv": 18,
+    "Warszawa": 5,
+    "Budapest": 11,
+    "Wien": 8
+  },
+  "Beograd": {
+    "Tirane": 15,
+    "Sofia": 11,
+    "Bucuresti": 12,
+    "Budapest": 10,
+    "Napoli": 18,
+    "Zagreb": 9
+  },
+  "Tirane": { "Beograd": 15, "Sofia": 13, "Athina": 16, "Napoli": 25 },
+  "Sofia": {
+    "Beograd": 11,
+    "Tirane": 13,
+    "Istanbul": 13,
+    "Athina": 17,
+    "Bucuresti": 9
+  },
+  "Istanbul": { "Sofia": 13, "Izmir": 8, "Ankara": 9, "Bucuresti": 13 },
+  "Athina": { "Sofia": 17, "Tirane": 16 },
+  "Izmir": { "Istanbul": 8, "Ankara": 10 },
+  "Ankara": { "Istanbul": 9, "Izmir": 10 },
+  "Bucuresti": {
+    "Beograd": 12,
+    "Sofia": 9,
+    "Istanbul": 13,
+    "Budapest": 16,
+    "Odessa": 10
+  },
+  "Budapest": {
+    "Beograd": 10,
+    "Kyjiv": 21,
+    "Zagreb": 7,
+    "Katowice": 11,
+    "Odessa": 25,
+    "Bucuresti": 16,
+    "Wien": 5
+  },
+  "Kyjiv": {
+    "Katowice": 18,
+    "Warszawa": 14,
+    "Minsk": 10,
+    "Kharkiv": 9,
+    "Odessa": 9,
+    "Budapest": 21
+  },
+  "Warszawa": {
+    "Katowice": 5,
+    "Praha": 11,
+    "Berlin": 11,
+    "Kyjiv": 14,
+    "Minsk": 10,
+    "Kobenhavn": 25,
+    "Riga": 12
+  },
+  "Minsk": {
+    "Kyjiv": 10,
+    "Warszawa": 10,
+    "Riga": 8,
+    "Moskwa": 14,
+    "Kharkiv": 16
+  },
+  "Kharkiv": { "Kyjiv": 9, "Odessa": 13, "Moskwa": 15, "Minsk": 16 },
+  "Odessa": { "Kyjiv": 9, "Kharkiv": 13, "Budapest": 25, "Bucuresti": 10 },
+  "Moskwa": { "Kharkiv": 15, "Riga": 18, "Sankt-Peterburg": 14, "Minsk": 14 },
+  "Kobenhavn": {
+    "Warszawa": 25,
+    "Bremen": 12,
+    "Berlin": 15,
+    "Stockholm": 18,
+    "Oslo": 17
+  },
+  "Riga": {
+    "Warszawa": 12,
+    "Minsk": 8,
+    "Moskwa": 18,
+    "Sankt-Peterburg": 13,
+    "Tallinn": 7
+  },
+  "Sankt-Peterburg": { "Riga": 13, "Tallinn": 9, "Helsinki": 11, "Moskwa": 14 },
+  "Tallinn": { "Riga": 7, "Sankt-Peterburg": 9 },
+  "Stockholm": { "Kobenhavn": 18, "Oslo": 13, "Helsinki": 21 },
+  "Oslo": { "Kobenhavn": 17, "Stockholm": 13 },
+  "Helsinki": { "Stockholm": 21, "Sankt-Peterburg": 11 },
+  "Napoli": { "Tirane": 25, "Beograd": 18, "Roma": 7 },
+  "Zagreb": {
+    "Beograd": 9,
+    "Munchen": 14,
+    "Milano": 17,
+    "Wien": 8,
+    "Budapest": 7
+  },
+  "Milano": {
+    "Munchen": 16,
+    "Marseille": 13,
+    "Lyon": 11,
+    "Zurich": 11,
+    "Roma": 19,
+    "Zagreb": 17
+  },
+  "Zurich": {
+    "Stuttgart": 5,
+    "Munchen": 8,
+    "Lyon": 14,
+    "Paris": 14,
+    "Milano": 11
+  },
+  "Roma": { "Milano": 19, "Napoli": 7 },
+  "Wien": {
+    "Zagreb": 8,
+    "Budapest": 5,
+    "Katowice": 8,
+    "Praha": 7,
+    "Munchen": 9
+  }
+}
