@@ -3,15 +3,15 @@ import json
 import os.path
 from copy import deepcopy
 CURRENT_PATH = os.path.dirname(os.path.realpath(__file__))
-MAP_COLORS = json.loads(
-    open(os.path.join(CURRENT_PATH, '../config/map_colors.json')).read())
-MAP_COSTS = json.loads(
-    open(os.path.join(CURRENT_PATH, '../config/map_costs.json')).read())
+COUNTRY_COLORS = json.loads(
+    open(os.path.join(CURRENT_PATH, '../config/country_colors.json')).read())
+MAP = json.loads(
+    open(os.path.join(CURRENT_PATH, '../config/game_map.json')).read())
 
 
 def get_playable_cities(colors):
     """ Returns a list of cities that are playable based on the colors"""
-    cities = [k for k in MAP_COLORS if MAP_COLORS.get(k) in colors]
+    cities = [k for k in COUNTRY_COLORS if COUNTRY_COLORS.get(k) in colors]
     return cities
 
 
@@ -23,6 +23,12 @@ def initial_board(colors):
         board[country] = {'1': None, '2': None, '3': None}
     return board
 
+
+def initial_state(colors):
+    board = initial_board(colors)
+    costs = deepcopy(MAP)
+    return dict(board=board, costs=costs)
+
 # main reducer
 
 
@@ -30,7 +36,7 @@ def game_map(state=None, action=None):
     """ The reducer for the boarder state"""
     if state is None:
         # Hard coding in the 4 colors now
-        state = initial_board(['brown', 'purple', 'red', 'yellow'])
+        state = initial_state(['brown', 'purple', 'red', 'yellow'])
     if action is None:
         return state
 
@@ -39,7 +45,7 @@ def game_map(state=None, action=None):
         # add player to city if not already in city
         player_id = action.get('player_id')
         new_state = deepcopy(state)
-        new_state[action.get('city')][action.get('slot')] = player_id
+        new_state['board'][action.get('city')][action.get('slot')] = player_id
         return new_state
 
     return state
