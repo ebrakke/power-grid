@@ -3,15 +3,15 @@ import json
 import os.path
 from copy import deepcopy
 CURRENT_PATH = os.path.dirname(os.path.realpath(__file__))
-MAP_COLORS = json.loads(
-    open(os.path.join(CURRENT_PATH, '../config/map_colors.json')).read())
-MAP_COSTS = json.loads(
-    open(os.path.join(CURRENT_PATH, '../config/map_costs.json')).read())
+COUNTRY_COLORS = json.loads(
+    open(os.path.join(CURRENT_PATH, '../config/country_colors.json')).read())
+MAP = json.loads(
+    open(os.path.join(CURRENT_PATH, '../config/game_map.json')).read())
 
 
 def get_playable_cities(colors):
     """ Returns a list of cities that are playable based on the colors"""
-    cities = [k for k in MAP_COLORS if MAP_COLORS.get(k) in colors]
+    cities = [k for k in COUNTRY_COLORS if COUNTRY_COLORS.get(k) in colors]
     return cities
 
 
